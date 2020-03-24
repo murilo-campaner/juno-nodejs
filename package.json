@@ -1,10 +1,11 @@
 {
   "name": "juno-nodejs",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Esse projeto destina-se a pessoas que estão realizando a integração com a API de pagamentos [JUNO](https://juno.com.br/) e estão encontrando problemas para realizar o hash do cartão de crédito no Frontend.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "start": "npm run build && node dist/index.js"
   },
   "author": "Murilo Campaner",
   "license": "ISC",
@@ -15,9 +16,12 @@
     "qs": "^6.9.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.1"
+    "eslint-plugin-import": "^2.20.1",
+    "rimraf": "^3.0.2"
   },
   "repository": {
     "type": "git",

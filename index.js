@@ -155,4 +155,4 @@ class JunoCardHash {
 
 }
 
-module.exports = JunoCardHash;
+exports.JunoCardHash = JunoCardHash;
