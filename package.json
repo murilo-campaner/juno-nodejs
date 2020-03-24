@@ -1,0 +1,41 @@
+{
+  "name": "juno-nodejs",
+  "version": "1.0.0",
+  "description": "Esse projeto destina-se a pessoas que estão realizando a integração com a API de pagamentos [JUNO](https://juno.com.br/) e estão encontrando problemas para realizar o hash do cartão de crédito no Frontend.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Murilo Campaner",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "base-64": "^0.1.0",
+    "isomorphic-webcrypto": "^2.3.6",
+    "qs": "^6.9.2"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/murilo-campaner/juno-nodejs.git"
+  },
+  "keywords": [
+    "juno",
+    "integracao",
+    "api",
+    "nodejs",
+    "react-native",
+    "cardhash",
+    "card",
+    "hash",
+    "pagamentos"
+  ],
+  "bugs": {
+    "url": "https://github.com/murilo-campaner/juno-nodejs/issues"
+  },
+  "homepage": "https://github.com/murilo-campaner/juno-nodejs#readme"
+}
