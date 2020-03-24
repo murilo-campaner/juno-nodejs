@@ -45,7 +45,12 @@ class JunoCardHash {
 		const params = qs.stringify({ publicToken: this.publicToken });
 		const ENDPOINT = `/get-public-encryption-key.json?${params}`;
 		return this.axios.post(ENDPOINT)
-			.then(({ data }) => data.replace(/(\r\n|\n|\r)/gm,"")) // Remove line breaks
+			.then((respoonse) => {
+				if (!response.data) {
+					throw new Error(response.errorMessage || 'Erro ao gerar a chave pública na API de pagamentos');
+				}
+				return data.replace(/(\r\n|\n|\r)/gm,"") // Remove line breaks
+			})
 	}
 
 	_fetchCardHash(encryptedCard) {
