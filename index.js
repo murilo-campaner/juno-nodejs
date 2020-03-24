@@ -31,9 +31,13 @@ class JunoCardHash {
 		const cardBuffer = this._str2ab(JSON.stringify(cardData));
 		const encryptedCard = await this._encryptCardData(encriptedPublicKey, cardBuffer);
 
-		const hash = await this._fetchCardHash(encryptedCard);
+		const result = await this._fetchCardHash(encryptedCard);
 
-		console.log(hash);
+		if (!result.success || !result.data) {
+			throw new Error(result.errorMessage || 'Não foi possível gerar o hash do cartão');
+		}
+
+		return result.data;
 	}
 
 
@@ -42,14 +46,12 @@ class JunoCardHash {
 		const ENDPOINT = `/get-public-encryption-key.json?${params}`;
 		return this.axios.post(ENDPOINT)
 			.then(({ data }) => data.replace(/(\r\n|\n|\r)/gm,"")) // Remove line breaks
-			.catch(console.log);
 	}
 
 	_fetchCardHash(encryptedCard) {
 		const params = qs.stringify({ publicToken: this.publicToken, encryptedData: encryptedCard });
 		const ENDPOINT = `/get-credit-card-hash.json?${params}`;
 		return this.axios.post(ENDPOINT)
-			.catch(console.log);
 	}
 
 
