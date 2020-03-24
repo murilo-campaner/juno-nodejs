@@ -45,11 +45,11 @@ class JunoCardHash {
 		const params = qs.stringify({ publicToken: this.publicToken });
 		const ENDPOINT = `/get-public-encryption-key.json?${params}`;
 		return this.axios.post(ENDPOINT)
-			.then((respoonse) => {
-				if (!response.data) {
-					throw new Error(response.errorMessage || 'Erro ao gerar a chave pública na API de pagamentos');
+			.then(({ data, errorMessage }) => {
+				if (errorMessage || !data) {
+					throw new Error(errorMessage || 'Erro ao gerar a chave pública na API de pagamentos')
 				}
-				return response.data.replace(/(\r\n|\n|\r)/gm,"") // Remove line breaks
+				return data.replace(/(\r\n|\n|\r)/gm,"") // Remove line breaks
 			})
 	}
 
@@ -145,8 +145,8 @@ class JunoCardHash {
   
 	_configureAxios(environment) {
 		const baseURL = environment === ENVIRONMENT.SANDBOX
-			? 'https://www.boletobancario.com/boletofacil/integration/api'
-			: 'https://sandbox.boletobancario.com/boletofacil/integration/api';
+			? 'https://sandbox.boletobancario.com/boletofacil/integration/api'
+			: 'https://www.boletobancario.com/boletofacil/integration/api';
 		
 		const instance = axios.create({ 
 			baseURL,
