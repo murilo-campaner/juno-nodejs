@@ -1,6 +1,6 @@
 {
   "name": "juno-nodejs",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Esse projeto destina-se a pessoas que estão realizando a integração com a API de pagamentos [JUNO](https://juno.com.br/) e estão encontrando problemas para realizar o hash do cartão de crédito no Frontend.",
   "main": "lib/index.js",
   "scripts": {
@@ -14,14 +14,14 @@
     "axios": "^0.19.2",
     "base-64": "^0.1.0",
     "isomorphic-webcrypto": "^2.3.6",
-    "qs": "^6.9.2"
+    "qs": "^6.9.2",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/runtime": "^7.9.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
-    "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
-    "@babel/runtime": "^7.9.2",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.1"
