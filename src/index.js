@@ -49,7 +49,7 @@ class JunoCardHash {
 				if (!response.data) {
 					throw new Error(response.errorMessage || 'Erro ao gerar a chave pública na API de pagamentos');
 				}
-				return data.replace(/(\r\n|\n|\r)/gm,"") // Remove line breaks
+				return response.data.replace(/(\r\n|\n|\r)/gm,"") // Remove line breaks
 			})
 	}
 
