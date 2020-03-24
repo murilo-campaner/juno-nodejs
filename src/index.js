@@ -1,3 +1,5 @@
+'use strict';
+
 const crypto = require('isomorphic-webcrypto');
 const { decode } = require('base-64');
 const axios = require('axios');
