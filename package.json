@@ -16,12 +16,12 @@
     "isomorphic-webcrypto": "^2.3.6",
     "qs": "^6.9.2",
     "@babel/plugin-transform-runtime": "^7.9.0",
-    "@babel/runtime": "^7.9.2"
-  },
-  "devDependencies": {
+    "@babel/runtime": "^7.9.2",
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-env": "^7.9.0"
+  },
+  "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.1"

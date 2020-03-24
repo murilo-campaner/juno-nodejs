@@ -1,5 +1,3 @@
-'use strict';
-
 const crypto = require('isomorphic-webcrypto');
 const { decode } = require('base-64');
 const axios = require('axios');
@@ -12,17 +10,17 @@ const ENVIRONMENT = {
 
 class JunoCardHash {
 
+	constructor(publicToken, environment = 'sandbox') {
+		this.publicToken = publicToken;
+		this.environment = environment;
+		this.axios = this._configureAxios(this.environment);
+	}
+
 	static getAlgorithm() {
 		return {
 			name: 'RSA-OAEP',
 			hash: { name: 'SHA-256' },
 		};
-	}
-
-	constructor(publicToken, environment = 'sandbox') {
-		this.publicToken = publicToken;
-		this.environment = environment;
-		this.axios = this._configureAxios(this.environment);
 	}
 	
 	async getCardHash(cardData) {
@@ -157,4 +155,6 @@ class JunoCardHash {
 
 }
 
-export default JunoCardHash;
+export { 
+	JunoCardHash
+}

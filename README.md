@@ -17,7 +17,7 @@ Instale o pacote através do comando:
 ## Utilização
 
 ```
-    const JunoCardHash = require('juno-nodejs');
+    const { JunoCardHash } = require('juno-nodejs');
     
     const publicToken = ''; // Token público da api da JUNO
     const environment = 'sandbox'; // 'sandbox' || 'production'
