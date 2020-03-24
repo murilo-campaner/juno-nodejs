@@ -1,6 +1,6 @@
 {
   "name": "juno-nodejs",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Esse projeto destina-se a pessoas que estão realizando a integração com a API de pagamentos [JUNO](https://juno.com.br/) e estão encontrando problemas para realizar o hash do cartão de crédito no Frontend.",
   "main": "lib/index.js",
   "scripts": {
