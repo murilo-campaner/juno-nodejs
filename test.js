@@ -1,7 +1,7 @@
 const { JunoCardHash } = require("./lib/index");
 
 const juno = new JunoCardHash(
-  "D87FD78FCC04C4DA425B2E2E4C88346ABDF32E5ECA7AB7EA350E2F72672B608B",
+  "PUBLIC_KEY",
   "sandbox"
 );
 
