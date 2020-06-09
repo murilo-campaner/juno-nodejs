@@ -1,0 +1,11 @@
+diff --git a/node_modules/isomorphic-webcrypto/index.d.ts b/node_modules/isomorphic-webcrypto/index.d.ts
+index 66f8389..98729f6 100644
+--- a/node_modules/isomorphic-webcrypto/index.d.ts
++++ b/node_modules/isomorphic-webcrypto/index.d.ts
+@@ -2,5 +2,5 @@ interface WebCrypto extends Crypto {
+     ensureSecure(): Promise<any>;
+ }
+ declare var crypto: WebCrypto
+-export = crypto;
++// export = crypto;
+ export default crypto;

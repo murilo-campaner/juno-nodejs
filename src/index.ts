@@ -1,17 +1,16 @@
-const crypto = require("isomorphic-webcrypto");
-
-import { decode } from "base-64";
-import * as qs from "qs";
-import axios, { AxiosInstance } from "axios";
+import crypto from 'isomorphic-webcrypto';
+import qs from 'qs';
+import { decode } from 'base-64';
+import axios, { AxiosInstance } from 'axios';
 
 const ENVIRONMENT = {
-  SANDBOX: "sandbox",
-  PRODUCTION: "production",
+  SANDBOX: 'sandbox',
+  PRODUCTION: 'production',
 };
 
-type ENV = "sandbox" | "production";
+type ENV = 'sandbox' | 'production';
 
-interface iCardData {
+interface ICardData {
   holderName: string;
   cardNumber: string;
   securityCode: string;
@@ -23,7 +22,7 @@ class JunoCardHash {
   publicToken: string;
   environment: ENV;
   axios: AxiosInstance;
-  constructor(publicToken: string, environment: ENV = "sandbox") {
+  constructor(publicToken: string, environment: ENV = 'sandbox') {
     this.publicToken = publicToken;
     this.environment = environment;
     this.axios = this._configureAxios(this.environment);
@@ -31,26 +30,23 @@ class JunoCardHash {
 
   static getAlgorithm() {
     return {
-      name: "RSA-OAEP",
-      hash: { name: "SHA-256" },
+      name: 'RSA-OAEP',
+      hash: { name: 'SHA-256' },
     };
   }
 
-  async getCardHash(cardData: iCardData) {
+  async getCardHash(cardData: ICardData) {
     const publicKey = await this._fetchPublicKey();
     const binaryKey = this._getBinaryKey(publicKey);
     const encriptedPublicKey = await this._importKey(binaryKey);
 
     const cardBuffer = this._str2ab(JSON.stringify(cardData));
-    const encryptedCard = await this._encryptCardData(
-      encriptedPublicKey,
-      cardBuffer
-    );
+    const encryptedCard = await this._encryptCardData(encriptedPublicKey, cardBuffer);
 
     const result = await this._fetchCardHash(encryptedCard);
 
     if (!result.data) {
-      throw new Error("Não foi possível gerar o hash do cartão");
+      throw new Error('Não foi possível gerar o hash do cartão');
     }
 
     return result.data;
@@ -61,13 +57,10 @@ class JunoCardHash {
     const ENDPOINT = `/get-public-encryption-key.json?${params}`;
     try {
       const { data } = await this.axios.post(ENDPOINT);
-      
-      return data && data.replace(/(\r\n|\n|\r)/gm, ""); // Remove line breaks
+
+      return data && data.replace(/(\r\n|\n|\r)/gm, ''); // Remove line breaks
     } catch (error) {
-      throw new Error(
-        error ||
-          "Erro ao gerar a chave pública na API de pagamentos"
-      );
+      throw new Error(error || 'Erro ao gerar a chave pública na API de pagamentos');
     }
   }
 
@@ -90,22 +83,17 @@ class JunoCardHash {
     const algorithm = JunoCardHash.getAlgorithm();
 
     return new Promise((resolve, reject) =>
-      crypto.subtle
-        .importKey("spki", binaryKey, algorithm, false, ["encrypt"])
-        .then(resolve, reject)
+      crypto.subtle.importKey('spki', binaryKey, algorithm, false, ['encrypt']).then(resolve, reject),
     );
   }
 
-  _encryptCardData(
-    publicKey: CryptoKey,
-    encodedCardData: ArrayBuffer
-  ): Promise<string | void> {
+  _encryptCardData(publicKey: CryptoKey, encodedCardData: ArrayBuffer): Promise<string | void> {
     const algorithm = JunoCardHash.getAlgorithm();
     return new Promise((resolve, reject) =>
       crypto.subtle
         .encrypt(algorithm, publicKey, encodedCardData)
         .then((data: ArrayBuffer) => this._encodeAb(data), reject)
-        .then((encoded: string) => resolve(encoded))
+        .then((encoded: string | void) => encoded && resolve(encoded)),
     );
   }
 
@@ -119,9 +107,8 @@ class JunoCardHash {
   }
 
   _encodeAb(arrayBuffer: ArrayBuffer) {
-    let base64 = "";
-    const encodings =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    let base64 = '';
+    const encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
     const bytes = new Uint8Array(arrayBuffer);
     const { byteLength } = bytes;
@@ -150,7 +137,7 @@ class JunoCardHash {
     }
 
     // Deal with the remaining bytes and padding
-    if (byteRemainder == 1) {
+    if (byteRemainder === 1) {
       chunk = bytes[mainLength];
 
       a = (chunk & 252) >> 2; // 252 = (2^6 - 1) << 2
@@ -159,7 +146,7 @@ class JunoCardHash {
       b = (chunk & 3) << 4; // 3   = 2^2 - 1
 
       base64 += `${encodings[a] + encodings[b]}==`;
-    } else if (byteRemainder == 2) {
+    } else if (byteRemainder === 2) {
       chunk = (bytes[mainLength] << 8) | bytes[mainLength + 1];
 
       a = (chunk & 64512) >> 10; // 64512 = (2^6 - 1) << 10
@@ -177,12 +164,12 @@ class JunoCardHash {
   _configureAxios(environment: ENV) {
     const baseURL =
       environment === ENVIRONMENT.SANDBOX
-        ? "https://sandbox.boletobancario.com/boletofacil/integration/api"
-        : "https://www.boletobancario.com/boletofacil/integration/api";
+        ? 'https://sandbox.boletobancario.com/boletofacil/integration/api'
+        : 'https://www.boletobancario.com/boletofacil/integration/api';
 
     const instance = axios.create({
       baseURL,
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     });
 
     instance.interceptors.response.use(({ data }) => data);
