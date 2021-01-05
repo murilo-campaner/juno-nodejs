@@ -11,7 +11,7 @@
   "author": "Murilo Campaner",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "base-64": "^0.1.0",
     "isomorphic-webcrypto": "^2.3.6",
     "qs": "^6.9.4"
